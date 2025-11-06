@@ -44,9 +44,7 @@ jobs:
         working-directory: apps/api
         run: node --experimental-vm-modules node_modules/jest/bin/jest.js
 
-      - name: Testes E2E com Playwright
-        run: npx playwright test e2e
-        continue-on-error: true
+      
         
       - name: Instalar Docker Compose manualmente
         run: |

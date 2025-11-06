@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependências do projeto
+        run: npm install
+
+      - name: Instalar navegadores do Playwright
+        run: npx playwright install --with-deps
+
+      - name: Subir containers com Docker Compose
+        run: docker-compose up -d --build
+
+      - name: Esperar containers subirem
+        run: sleep 10
+
+      - name: Testes unitários do frontend (Vitest)
+        working-directory: apps/web
+        run: npx vitest run
+
+      - name: Testes unitários do backend (Jest)
+        working-directory: apps/api
+        run: node --experimental-vm-modules node_modules/jest/bin/jest.js
+
+      - name: Testes E2E com Playwright
+        run: npx playwright test e2e

@@ -19,11 +19,16 @@ jobs:
         with:
           node-version: 20
 
-      - name: Instalar dependências do projeto
-        run: npm install
-
       - name: Instalar navegadores do Playwright
         run: npx playwright install --with-deps
+
+      - name: Instalar dependências do frontend
+        working-directory: apps/web
+        run: npm ci
+
+      - name: Instalar dependências do backend
+        working-directory: apps/api
+        run: npm ci
 
       - name: Subir containers com Docker Compose
         run: docker-compose up -d --build

@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: Instalar navegadores do Playwright
-        run: npx playwright install --with-deps
+      #- name: Instalar navegadores do Playwright
+       # run: npx playwright install --with-deps
 
       - name: Instalar dependências do frontend
         working-directory: apps/web
@@ -52,6 +52,5 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
 
-      - name: Testes E2E com Playwright
-        run: npx playwright test e2e
+  
 

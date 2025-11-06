@@ -31,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: Subir containers com Docker Compose
-        run: docker-compose up -d --build
+        run: docker compose up -d --build
 
       - name: Esperar containers subirem
         run: sleep 10
@@ -46,3 +46,8 @@ jobs:
 
       - name: Testes E2E com Playwright
         run: npx playwright test e2e
+
+      - name: Instalar Docker Compose Plugin
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-compose-plugin

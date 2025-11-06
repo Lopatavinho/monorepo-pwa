@@ -48,11 +48,12 @@ jobs:
         run: npx playwright test e2e
         continue-on-error: true
         
-      - name: Instalar Docker Compose Plugin
+      - name: Instalar Docker Compose manualmente
         run: |
-          sudo apt-get update
-          sudo apt-get install docker-compose-plugin
-      
+          sudo curl -L https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose version
+
       - name: Testes E2E com Playwright
         run: npx playwright test e2e
 
